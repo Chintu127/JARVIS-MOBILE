@@ -1,83 +1,326 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap');
+
+
+/* ============================================================
+   GLOBAL
+   ============================================================ */
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Orbitron', sans-serif;
 }
+
+
+:root {
+    --cyan: #00ffff;
+    --cyan-light: #8fffff;
+    --cyan-dark: #008b8b;
+
+    --green: #00ff66;
+    --red: #ff3030;
+
+    --black: #000000;
+    --panel: rgba(0, 255, 255, 0.035);
+
+    --border: rgba(0, 255, 255, 0.35);
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
 
 body {
     min-height: 100vh;
-    background: #000;
-    color: #00ffff;
+
+    background:
+        radial-gradient(
+            circle at 50% 15%,
+            rgba(0, 255, 255, 0.08),
+            transparent 35%
+        ),
+        #000;
+
+    color: var(--cyan);
+
+    font-family: 'Orbitron', sans-serif;
+
     padding: 20px;
+
+    overflow-x: hidden;
 }
 
-/* HEADER */
 
-header {
+/* ============================================================
+   SCANLINE EFFECT
+   ============================================================ */
+
+body::before {
+    content: "";
+
+    position: fixed;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    background:
+        repeating-linear-gradient(
+            0deg,
+            rgba(0, 255, 255, 0.018) 0px,
+            rgba(0, 255, 255, 0.018) 1px,
+            transparent 1px,
+            transparent 4px
+        );
+
+    z-index: 999;
+}
+
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+
+.header {
     text-align: center;
+
+    margin-bottom: 15px;
 }
 
-header h1 {
-    font-size: 28px;
-    letter-spacing: 6px;
+
+.header h1 {
+    font-size: clamp(24px, 8vw, 34px);
+
+    font-weight: 700;
+
+    letter-spacing: 7px;
+
+    color: var(--cyan);
+
     text-shadow:
-        0 0 8px #00ffff,
-        0 0 20px #00ffff;
+        0 0 5px var(--cyan),
+        0 0 15px var(--cyan),
+        0 0 30px rgba(0, 255, 255, 0.5);
 }
 
-header p {
+
+.header p {
     margin-top: 5px;
-    font-size: 10px;
-    letter-spacing: 4px;
-    opacity: 0.6;
+
+    font-size: 9px;
+
+    letter-spacing: 5px;
+
+    opacity: 0.55;
 }
 
-/* ARC REACTOR */
+
+.system-indicator {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    margin-top: 12px;
+
+    padding: 5px 10px;
+
+    border: 1px solid rgba(0, 255, 255, 0.2);
+
+    font-size: 8px;
+
+    letter-spacing: 2px;
+
+    opacity: 0.7;
+}
+
+
+.indicator-dot {
+    width: 6px;
+    height: 6px;
+
+    background: var(--green);
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 5px var(--green),
+        0 0 10px var(--green);
+
+    animation: indicatorPulse 1.2s infinite;
+}
+
+
+@keyframes indicatorPulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.25;
+    }
+
+}
+
+
+/* ============================================================
+   ARC REACTOR SECTION
+   ============================================================ */
+
+.reactor-section {
+    text-align: center;
+
+    margin-top: 20px;
+}
+
 
 .core {
     position: relative;
-    width: 160px;
-    height: 160px;
-    margin: 30px auto 15px;
+
+    width: 170px;
+    height: 170px;
+
+    margin: 0 auto 12px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
 }
+
+
+/* ============================================================
+   REACTOR RINGS
+   ============================================================ */
 
 .ring {
     position: absolute;
-    border: 2px solid #00ffff;
+
     border-radius: 50%;
+
+    border: 2px solid var(--cyan);
+
     box-shadow:
-        0 0 10px #00ffff,
-        inset 0 0 10px rgba(0, 255, 255, 0.3);
+        0 0 8px var(--cyan),
+        inset 0 0 8px rgba(0, 255, 255, 0.15);
 }
+
 
 .r1 {
     inset: 0;
+
     border-top-color: transparent;
-    animation: spin 3s linear infinite;
+    border-left-color: transparent;
+
+    animation:
+        spin 4s linear infinite;
 }
 
+
 .r2 {
-    inset: 20px;
+    inset: 17px;
+
     border-bottom-color: transparent;
-    animation: spin 2s linear infinite reverse;
+    border-right-color: transparent;
+
+    animation:
+        spinReverse 2.5s linear infinite;
 }
+
+
+.r3 {
+    inset: 35px;
+
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+
+    opacity: 0.7;
+
+    animation:
+        spin 5s linear infinite;
+}
+
+
+/* ============================================================
+   REACTOR CENTER
+   ============================================================ */
 
 .center {
     position: absolute;
-    inset: 50px;
-    background: #00ffff;
+
+    width: 70px;
+    height: 70px;
+
     border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background:
+        radial-gradient(
+            circle,
+            #ffffff 0%,
+            var(--cyan) 25%,
+            rgba(0, 255, 255, 0.5) 50%,
+            transparent 72%
+        );
+
     box-shadow:
-        0 0 15px #00ffff,
-        0 0 30px #00ffff,
-        0 0 50px rgba(0, 255, 255, 0.5);
-    animation: pulse 1.5s infinite;
+        0 0 15px var(--cyan),
+        0 0 35px var(--cyan),
+        0 0 65px rgba(0, 255, 255, 0.6);
+
+    animation: corePulse 1.5s ease-in-out infinite;
 }
 
+
+.center-inner {
+    width: 22px;
+    height: 22px;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 0 10px #ffffff,
+        0 0 25px var(--cyan);
+}
+
+
+/* ============================================================
+   ENERGY LINES
+   ============================================================ */
+
+.energy-lines {
+    position: absolute;
+
+    width: 125px;
+    height: 125px;
+
+    border-radius: 50%;
+
+    border:
+        1px dashed rgba(0, 255, 255, 0.5);
+
+    animation:
+        spinReverse 8s linear infinite;
+}
+
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+
 @keyframes spin {
+
     from {
         transform: rotate(0deg);
     }
@@ -85,160 +328,586 @@ header p {
     to {
         transform: rotate(360deg);
     }
+
 }
 
-@keyframes pulse {
-    0% {
+
+@keyframes spinReverse {
+
+    from {
+        transform: rotate(360deg);
+    }
+
+    to {
+        transform: rotate(0deg);
+    }
+
+}
+
+
+@keyframes corePulse {
+
+    0%,
+    100% {
         transform: scale(1);
-        opacity: 1;
+
+        filter: brightness(1);
     }
 
     50% {
-        transform: scale(0.8);
-        opacity: 0.4;
+        transform: scale(0.82);
+
+        filter: brightness(1.6);
     }
 
-    100% {
-        transform: scale(1);
-        opacity: 1;
-    }
 }
+
+
+/* ============================================================
+   CORE TEXT
+   ============================================================ */
 
 .core-text {
-    text-align: center;
-    font-size: 11px;
-    letter-spacing: 3px;
-    text-shadow: 0 0 8px #00ffff;
+    font-size: 10px;
+
+    letter-spacing: 4px;
+
+    text-shadow:
+        0 0 8px var(--cyan);
 }
 
-/* SYSTEM STATUS */
 
-.status {
-    border: 1px solid rgba(0, 255, 255, 0.35);
-    background: rgba(0, 255, 255, 0.05);
-    padding: 14px;
-    margin: 20px 0;
+.core-frequency {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 3px;
+
+    height: 15px;
+
+    margin-top: 8px;
+}
+
+
+.core-frequency span {
+    width: 3px;
+
+    background: var(--cyan);
 
     box-shadow:
-        0 0 15px rgba(0, 255, 255, 0.05);
+        0 0 5px var(--cyan);
 
-    border-radius: 4px;
+    animation: frequency 1s ease-in-out infinite;
 }
 
-.status h2 {
-    font-size: 12px;
-    letter-spacing: 2px;
+
+.core-frequency span:nth-child(1) {
+    height: 5px;
+    animation-delay: 0s;
+}
+
+
+.core-frequency span:nth-child(2) {
+    height: 10px;
+    animation-delay: 0.1s;
+}
+
+
+.core-frequency span:nth-child(3) {
+    height: 14px;
+    animation-delay: 0.2s;
+}
+
+
+.core-frequency span:nth-child(4) {
+    height: 8px;
+    animation-delay: 0.3s;
+}
+
+
+.core-frequency span:nth-child(5) {
+    height: 12px;
+    animation-delay: 0.4s;
+}
+
+
+.core-frequency span:nth-child(6) {
+    height: 6px;
+    animation-delay: 0.5s;
+}
+
+
+.core-frequency span:nth-child(7) {
+    height: 11px;
+    animation-delay: 0.6s;
+}
+
+
+.core-frequency span:nth-child(8) {
+    height: 5px;
+    animation-delay: 0.7s;
+}
+
+
+@keyframes frequency {
+
+    0%,
+    100% {
+        opacity: 0.4;
+        transform: scaleY(0.7);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scaleY(1.2);
+    }
+
+}
+
+
+/* ============================================================
+   SYSTEM STATUS
+   ============================================================ */
+
+.status {
+    max-width: 650px;
+
+    margin: 22px auto;
+
+    padding: 15px;
+
+    border: 1px solid var(--border);
+
+    background: var(--panel);
+
+    box-shadow:
+        0 0 20px rgba(0, 255, 255, 0.04);
+
+    position: relative;
+}
+
+
+.status::before,
+.status::after {
+    content: "";
+
+    position: absolute;
+
+    width: 10px;
+    height: 10px;
+
+    border-color: var(--cyan);
+
+    border-style: solid;
+}
+
+
+.status::before {
+    top: -1px;
+    left: -1px;
+
+    border-width: 2px 0 0 2px;
+}
+
+
+.status::after {
+    right: -1px;
+    bottom: -1px;
+
+    border-width: 0 2px 2px 0;
+}
+
+
+.section-title {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
     margin-bottom: 12px;
 }
 
+
+.title-line {
+    width: 3px;
+
+    height: 13px;
+
+    background: var(--cyan);
+
+    box-shadow:
+        0 0 8px var(--cyan);
+}
+
+
+.status h2 {
+    font-size: 11px;
+
+    letter-spacing: 2px;
+}
+
+
 .row {
     display: flex;
+
     justify-content: space-between;
     align-items: center;
 
-    font-size: 11px;
-    margin: 8px 0;
+    padding: 7px 2px;
+
+    border-bottom:
+        1px solid rgba(0, 255, 255, 0.08);
+
+    font-size: 10px;
 }
+
+
+.row:last-child {
+    border-bottom: none;
+}
+
 
 .on {
-    color: #00ff44;
-    text-shadow: 0 0 6px #00ff44;
+    color: var(--green);
+
+    text-shadow:
+        0 0 7px var(--green);
 }
+
 
 .off {
-    color: #ff3333;
-    text-shadow: 0 0 6px #ff3333;
+    color: var(--red);
+
+    text-shadow:
+        0 0 7px var(--red);
 }
 
-/* CHAT */
+
+.on span,
+.off span {
+    margin-right: 3px;
+}
+
+
+/* ============================================================
+   CHAT CONTAINER
+   ============================================================ */
+
+.chat-container {
+    max-width: 650px;
+
+    margin: 20px auto 0;
+
+    border: 1px solid var(--border);
+
+    background: rgba(0, 255, 255, 0.02);
+}
+
+
+.chat-header {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 9px 12px;
+
+    border-bottom:
+        1px solid rgba(0, 255, 255, 0.2);
+
+    background:
+        rgba(0, 255, 255, 0.05);
+
+    font-size: 9px;
+
+    letter-spacing: 1.5px;
+}
+
+
+.chat-title {
+    color: var(--cyan);
+}
+
+
+.live {
+    color: var(--green);
+
+    font-size: 8px;
+
+    text-shadow:
+        0 0 6px var(--green);
+}
+
+
+/* ============================================================
+   CHAT WINDOW
+   ============================================================ */
 
 .chat {
-    border: 1px solid rgba(0, 255, 255, 0.35);
-    height: 180px;
+    height: 190px;
+
     overflow-y: auto;
 
     padding: 10px;
-    font-size: 12px;
 
-    background: rgba(0, 255, 255, 0.025);
+    font-size: 11px;
+
+    line-height: 1.5;
 
     scrollbar-width: thin;
-    scrollbar-color: #00ffff #000;
+
+    scrollbar-color:
+        var(--cyan)
+        #000;
 }
+
+
+/* Chrome scrollbar */
+
+.chat::-webkit-scrollbar {
+    width: 4px;
+}
+
+
+.chat::-webkit-scrollbar-track {
+    background: #000;
+}
+
+
+.chat::-webkit-scrollbar-thumb {
+    background: var(--cyan);
+
+    box-shadow:
+        0 0 5px var(--cyan);
+}
+
+
+/* ============================================================
+   CHAT MESSAGES
+   ============================================================ */
 
 .msg {
     margin: 7px 0;
-    padding: 8px;
 
-    border-left: 2px solid #00ffff;
-    background: rgba(0, 255, 255, 0.08);
+    padding: 8px 10px;
 
-    line-height: 1.5;
+    border-left: 2px solid var(--cyan);
+
+    background:
+        rgba(0, 255, 255, 0.07);
+
+    word-wrap: break-word;
+
+    animation:
+        messageIn 0.25s ease-out;
 }
+
 
 .msg.user {
     border-left-color: #ffffff;
+
     color: #ffffff;
-    background: rgba(255, 255, 255, 0.05);
+
+    background:
+        rgba(255, 255, 255, 0.045);
 }
 
-/* INPUT */
+
+.msg.ai {
+    color: var(--cyan-light);
+}
+
+
+@keyframes messageIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+/* ============================================================
+   INPUT AREA
+   ============================================================ */
 
 .input-area {
+    max-width: 650px;
+
+    margin: 12px auto 0;
+
     display: flex;
-    gap: 8px;
-    margin-top: 12px;
+
+    gap: 7px;
 }
+
 
 input {
     flex: 1;
 
     min-width: 0;
 
+    padding: 11px 12px;
+
     background: #000;
-    border: 1px solid #00ffff;
 
-    color: #00ffff;
+    color: var(--cyan);
 
-    padding: 11px;
+    border:
+        1px solid var(--cyan);
 
     outline: none;
-}
 
-input:focus {
-    box-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
-}
+    font-family: 'Orbitron', sans-serif;
 
-input::placeholder {
-    color: rgba(0, 255, 255, 0.45);
-}
+    font-size: 10px;
 
-button {
-    background: #00ffff;
-    color: #000;
-
-    border: none;
-
-    padding: 10px 16px;
-
-    font-weight: bold;
-
-    cursor: pointer;
+    box-shadow:
+        inset 0 0 10px rgba(0, 255, 255, 0.03);
 
     transition: 0.2s;
 }
 
-button:hover {
+
+input:focus {
     box-shadow:
-        0 0 10px #00ffff,
-        0 0 20px #00ffff;
+        0 0 12px rgba(0, 255, 255, 0.25);
 }
 
-button:active {
-    transform: scale(0.96);
+
+input::placeholder {
+    color: rgba(0, 255, 255, 0.4);
 }
 
-/* MOBILE */
+
+button {
+    font-family: 'Orbitron', sans-serif;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        0.2s ease;
+}
+
+
+/* ============================================================
+   MIC BUTTON
+   ============================================================ */
+
+#mic-btn {
+    width: 48px;
+
+    flex-shrink: 0;
+
+    background: #000;
+
+    color: var(--cyan);
+
+    border:
+        1px solid var(--cyan);
+
+    font-size: 17px;
+
+    box-shadow:
+        0 0 5px rgba(0, 255, 255, 0.1);
+}
+
+
+#mic-btn:hover {
+    background: var(--cyan);
+
+    color: #000;
+
+    box-shadow:
+        0 0 10px var(--cyan),
+        0 0 20px rgba(0, 255, 255, 0.5);
+}
+
+
+#mic-btn:active {
+    transform: scale(0.94);
+}
+
+
+#mic-btn:disabled {
+    opacity: 0.35;
+
+    cursor: not-allowed;
+}
+
+
+/* ============================================================
+   SEND BUTTON
+   ============================================================ */
+
+#send {
+    padding: 10px 17px;
+
+    background: var(--cyan);
+
+    color: #000;
+
+    border:
+        1px solid var(--cyan);
+
+    font-size: 9px;
+
+    letter-spacing: 1px;
+
+    box-shadow:
+        0 0 8px rgba(0, 255, 255, 0.25);
+}
+
+
+#send:hover {
+    box-shadow:
+        0 0 12px var(--cyan),
+        0 0 25px rgba(0, 255, 255, 0.5);
+}
+
+
+#send:active {
+    transform: scale(0.95);
+}
+
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+footer {
+    max-width: 650px;
+
+    margin: 20px auto 5px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 8px;
+
+    font-size: 7px;
+
+    letter-spacing: 1px;
+
+    opacity: 0.35;
+}
+
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
 
 @media (max-width: 500px) {
 
@@ -246,28 +915,106 @@ button:active {
         padding: 15px;
     }
 
-    header h1 {
-        font-size: 23px;
+
+    .header h1 {
+        letter-spacing: 5px;
     }
+
 
     .core {
-        width: 140px;
-        height: 140px;
+        width: 150px;
+        height: 150px;
     }
+
 
     .center {
-        inset: 45px;
+        width: 62px;
+        height: 62px;
     }
 
-    .chat {
-        height: 200px;
+
+    .energy-lines {
+        width: 110px;
+        height: 110px;
     }
+
+
+    .chat {
+        height: 210px;
+    }
+
 
     .input-area {
         gap: 5px;
     }
 
-    button {
+
+    #mic-btn {
+        width: 43px;
+        padding: 0;
+    }
+
+
+    #send {
         padding: 10px 12px;
     }
+
+
+    footer {
+        flex-wrap: wrap;
+
+        justify-content: center;
+
+        margin-top: 15px;
+    }
+
+}
+
+
+/* ============================================================
+   VERY SMALL PHONES
+   ============================================================ */
+
+@media (max-width: 350px) {
+
+    body {
+        padding: 10px;
+    }
+
+
+    .header h1 {
+        font-size: 21px;
+
+        letter-spacing: 4px;
+    }
+
+
+    .status {
+        padding: 12px;
+    }
+
+
+    .row {
+        font-size: 9px;
+    }
+
+
+    input {
+        font-size: 9px;
+
+        padding: 10px 8px;
+    }
+
+
+    #mic-btn {
+        width: 40px;
+    }
+
+
+    #send {
+        padding: 10px;
+
+        font-size: 8px;
+    }
+
 }
