@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>J.A.R.V.I.S — Mobile Edition</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="header">
+        <h1>J.A.R.V.I.S</h1>
+        <p>MOBILE EDITION</p>
+
+        <div class="system-indicator">
+            <span class="indicator-dot"></span>
+            SYSTEM READY
+        </div>
+    </header>
+
+
+    <!-- ================= ARC REACTOR ================= -->
+
+    <section class="reactor-section">
+
+        <div class="core">
+
+            <div class="ring r1"></div>
+
+            <div class="ring r2"></div>
+
+            <div class="ring r3"></div>
+
+            <div class="energy-lines"></div>
+
+            <div class="center">
+                <div class="center-inner"></div>
+            </div>
+
+        </div>
+
+        <p class="core-text">CORE ACTIVE</p>
+
+        <div class="core-frequency">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+    </section>
+
+
+    <!-- ================= SYSTEM STATUS ================= -->
+
+    <section class="status">
+
+        <div class="section-title">
+            <span class="title-line"></span>
+            <h2>SYSTEM STATUS</h2>
+        </div>
+
+
+        <div class="row">
+
+            <span>AI CORE</span>
+
+            <b class="on">
+                <span>●</span>
+                ONLINE
+            </b>
+
+        </div>
+
+
+        <div class="row">
+
+            <span>NETWORK</span>
+
+            <b class="on">
+                <span>●</span>
+                ONLINE
+            </b>
+
+        </div>
+
+
+        <div class="row">
+
+            <span>VOICE</span>
+
+            <b class="on">
+                <span>●</span>
+                READY
+            </b>
+
+        </div>
+
+
+        <div class="row">
+
+            <span>MEMORY</span>
+
+            <b class="off">
+                <span>○</span>
+                LOCKED
+            </b>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= CHAT ================= -->
+
+    <section class="chat-container">
+
+        <div class="chat-header">
+
+            <span class="chat-title">
+                J.A.R.V.I.S TERMINAL
+            </span>
+
+            <span class="live">
+                ● LIVE
+            </span>
+
+        </div>
+
+
+        <div
+            class="chat"
+            id="chat"
+        >
+
+            <!-- JavaScript messages appear here -->
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= INPUT ================= -->
+
+    <section class="input-area">
+
+        <input
+            id="msg"
+            type="text"
+            placeholder="Ask J.A.R.V.I.S..."
+            autocomplete="off"
+            spellcheck="false"
+        >
+
+
+        <button
+            id="mic-btn"
+            type="button"
+            aria-label="Voice input"
+            title="Voice Input"
+        >
+            🎙️
+        </button>
+
+
+        <button
+            id="send"
+            type="button"
+        >
+            SEND
+        </button>
+
+    </section>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <span>J.A.R.V.I.S v1.0</span>
+
+        <span>AI ASSISTANT</span>
+
+        <span>SECURE CHANNEL</span>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
